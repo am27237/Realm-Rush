@@ -73,8 +73,8 @@ crashlytics-build.properties
 # Other folders to ignore
 /Assets/TextMesh*
 /Assets/Imported*
-/Assets/Prefabs*
-/Assets/Scenes*
+/Assets/Prefabs/*
+/Assets/Scenes/*
 /ProjectSettings/*
 /Packages/*
 
