@@ -18,6 +18,7 @@ public class EnemyMover : MonoBehaviour
         {
             transform.position = waypoints.transform.position;
             yield return new WaitForSeconds(waitSpeed);
+            //test
         }
     }
 }
