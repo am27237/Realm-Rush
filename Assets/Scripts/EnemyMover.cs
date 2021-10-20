@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Enemy))]
 public class EnemyMover : MonoBehaviour
 {
     [SerializeField] List<Waypoints> path = new List<Waypoints>();
@@ -23,12 +24,15 @@ public class EnemyMover : MonoBehaviour
     void FindPath()
     {
         path.Clear(); //clear whatever current objects in the list
-                      
-        //Add all path arrays in the path list
-        GameObject[] waypoint = GameObject.FindGameObjectsWithTag("Path");
-        foreach (GameObject waypointVar in waypoint)
+        GameObject parentPath = GameObject.FindGameObjectWithTag("Path");
+        //Since we used "FindGameObjectWithTag" without the "s", we must access the child arrays to use foreach statement
+        foreach (Transform childTile in parentPath.transform)
         {
-            path.Add(waypointVar.GetComponent<Waypoints>());
+            Waypoints waypoints = childTile.GetComponent<Waypoints>();
+            if (waypoints != null)
+            {
+                path.Add(waypoints);
+            }
         }
     }
 
@@ -56,6 +60,11 @@ public class EnemyMover : MonoBehaviour
             }
         }
 
+        FinishPath();
+    }
+
+    private void FinishPath()
+    {
         enemy.StealGold();
         gameObject.SetActive(false);
     }
