@@ -75,6 +75,7 @@ crashlytics-build.properties
 /Assets/Imported*
 /Assets/Prefabs/*
 /Assets/Scenes/*
+/Assets/Fonts*
 /ProjectSettings/*
 /Packages/*
 
