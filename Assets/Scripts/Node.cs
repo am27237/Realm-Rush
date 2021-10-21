@@ -11,7 +11,7 @@ public class Node
     public bool isPath;
     public bool connectecTo;
 
-    public Node(Vector2Int coordinates, bool Walkable)
+    public Node(Vector2Int coordinates, bool isWalkable)
     {
         this.coordinates = coordinates;
         this.isWalkable = isWalkable;

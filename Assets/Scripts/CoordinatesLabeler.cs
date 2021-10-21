@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
 [ExecuteAlways] //will execute even in edit mode
 [RequireComponent(typeof(TextMeshPro))]
@@ -9,18 +7,20 @@ public class CoordinatesLabeler : MonoBehaviour
 {
     [SerializeField] Color defaultColor = Color.white;
     [SerializeField] Color blockedColor = Color.gray;
+    [SerializeField] Color exploredColor = Color.yellow;
+    [SerializeField] Color pathColor = new Color(1f, 0.5f, 0f);
 
     TextMeshPro label;
     Vector2Int coordinates = new Vector2Int();
-    Waypoints waypoints;
+    GridManager gridManager;
 
     private void Awake()
     {
+        gridManager = FindObjectOfType<GridManager>();
         label = GetComponent<TextMeshPro>();
         label.enabled = false;
-        waypoints = GetComponentInParent<Waypoints>();
         DisplayCoordinates();   //DisplayCoordinates() method in Awake methode to prevent breaking of the code during play mode
-        
+
     }
 
     void Update()
@@ -37,13 +37,32 @@ public class CoordinatesLabeler : MonoBehaviour
 
     private void SetLabelColor()
     {
-        if (waypoints.IsPlaceable)
-        {
-            label.color = defaultColor;
-        }
-        else
+        
+
+        if (gridManager == null) { return; }
+
+        Node node = gridManager.GetNodes(coordinates);
+
+        if (node == null) { return; }
+
+        if (!node.isWalkable)
         {
             label.color = blockedColor;
+        }
+
+        else if (node.isPath)
+        {
+            label.color = pathColor;
+        }
+
+        else if (node.isExplored)
+        {
+            label.color = exploredColor;
+        }
+
+        else
+        {
+            label.color = default;
         }
     }
 
