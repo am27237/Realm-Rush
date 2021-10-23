@@ -13,6 +13,7 @@ public class PathFinder : MonoBehaviour
     Node startNode;
     Node destinationNode;
     Node currentSearchNode;
+
     Queue<Node> frontier = new Queue<Node>();
     Dictionary<Vector2Int, Node> reached = new Dictionary<Vector2Int, Node>();
 
@@ -34,14 +35,7 @@ public class PathFinder : MonoBehaviour
 
     private void Start()
     {
-        //startNode = gridManager.Grid[startCoordinates];
-        //destinationNode = gridManager.Grid[destinationCoordinates];
-
         GetNewPath();
-
-        //BreadthFirstSearch();
-        //BuildPath();
-
     }
 
     public List<Node> GetNewPath()
@@ -118,6 +112,12 @@ public class PathFinder : MonoBehaviour
 
         return false;
     }
+
+    public void NotifyReceivers()
+    {
+        BroadcastMessage("RecalculatePath", SendMessageOptions.DontRequireReceiver);
+    }
+
 
 
     void ExploreNeighbors()
