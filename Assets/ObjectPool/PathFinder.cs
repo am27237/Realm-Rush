@@ -1,4 +1,4 @@
-    using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -24,14 +24,38 @@ public class PathFinder : MonoBehaviour
             grid = gridManager.Grid;
         }
 
-        startNode = new Node(startCoordinates, true);
-        destinationNode = new Node(destinationCoordinates, true);
+        //startNode = new Node(startCoordinates, true);
+        //destinationNode = new Node(destinationCoordinates, true);
     }
 
     private void Start()
     {
-        //ExploreNeighbors();
+        startNode = gridManager.Grid[startCoordinates];
+        destinationNode = gridManager.Grid[destinationCoordinates];
+
         BreadthFirstSearch();
+        BuildPath();
+    }
+
+    List<Node> BuildPath()
+    {
+        List<Node> path = new List<Node>();
+        Node currentNode = destinationNode;
+
+        path.Add(currentNode);
+        currentNode.isPath = true;
+
+        while (currentNode.connectedTo !=null)
+        {
+            currentNode = currentNode.connectedTo;
+            path.Add(currentNode);
+            currentNode.isPath = true;
+        }
+
+        path.Reverse();
+
+        return path;
+
     }
 
     void BreadthFirstSearch()
@@ -40,7 +64,7 @@ public class PathFinder : MonoBehaviour
         frontier.Enqueue(startNode);
         reached.Add(startCoordinates, startNode);
 
-        while ( frontier.Count > 0 && isRunning )
+        while (frontier.Count > 0 && isRunning)
         {
             currentSearchNode = frontier.Dequeue();
             currentSearchNode.isExplored = true;
@@ -63,9 +87,6 @@ public class PathFinder : MonoBehaviour
             {
                 neighbors.Add(grid[neighborCoords]);
 
-                //To remove after testing
-                //grid[neighborCoords].isExplored = true;
-                //grid[currentSearchNode.coordinates].isPath = true;
             }
         }
 
@@ -73,10 +94,12 @@ public class PathFinder : MonoBehaviour
         {
             if (!reached.ContainsKey(neighbor.coordinates) && neighbor.isWalkable)
             {
+                neighbor.connectedTo = currentSearchNode;
                 reached.Add(neighbor.coordinates, neighbor);
                 frontier.Enqueue(neighbor);
-            }    
+            }
         }
 
     }
+
 }

@@ -3742,6 +3742,18 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1532029055772022379, guid: ffa5783b2d9746c47b0629df32153e76, type: 3}
+      propertyPath: startCoordinates.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1532029055772022379, guid: ffa5783b2d9746c47b0629df32153e76, type: 3}
+      propertyPath: destinationCoordinates.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1532029055772022379, guid: ffa5783b2d9746c47b0629df32153e76, type: 3}
+      propertyPath: destinationCoordinates.y
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1532029055772022379, guid: ffa5783b2d9746c47b0629df32153e76, type: 3}
       propertyPath: currentSearchNode.coordinates.x
       value: 3
       objectReference: {fileID: 0}
