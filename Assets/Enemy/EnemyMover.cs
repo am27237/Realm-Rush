@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(Enemy))]
 public class EnemyMover : MonoBehaviour
 {
-    [SerializeField] List<Waypoints> path = new List<Waypoints>();
+    [SerializeField] List<Tile> path = new List<Tile>();
     [SerializeField] [Range(0, 5)]float speed = 1f;
     Enemy enemy;
     
@@ -28,7 +28,7 @@ public class EnemyMover : MonoBehaviour
         //Since we used "FindGameObjectWithTag" without the "s", we must access the child arrays to use foreach statement
         foreach (Transform childTile in parentPath.transform)
         {
-            Waypoints waypoints = childTile.GetComponent<Waypoints>();
+            Tile waypoints = childTile.GetComponent<Tile>();
             if (waypoints != null)
             {
                 path.Add(waypoints);
@@ -43,7 +43,7 @@ public class EnemyMover : MonoBehaviour
 
     IEnumerator FollowPath()
     {
-        foreach (Waypoints waypoints in path)
+        foreach (Tile waypoints in path)
         {
             //Smooth movement of the enemy
             Vector3 startPosition = transform.position;
